@@ -1,0 +1,203 @@
+{{! <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * @package     block_cosy_ct
+ * @copyright      2023  J. Cornejo-Lupa
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */ }}
+ 
+<style>
+  .change-name-form { grid-area: change-name; }
+  .add-button { grid-area: add-button; }
+  .table-cus { grid-area: table-cus; }
+  .title-rec-obj { grid-area: title-rec-obj; }
+  
+  .edit-icon { 
+    grid-area: edit-icon;
+    padding-top: 30px !important;
+  }
+  .resets { grid-area: reset; }
+  .label-text { grid-area: label }
+  .content-text { grid-area: content }
+
+  .grid-container {
+    display: grid;
+    grid-template-areas:
+      'change-name change-name edit-icon edit-icon edit-icon edit-icon';
+    gap: 10px;
+    padding: 10px;
+  }
+  .grid-table-container {
+    display: grid;
+    grid-template-areas:
+      'title-rec-obj title-rec-obj title-rec-obj title-rec-obj add-button add-button'
+      'table-cus table-cus table-cus table-cus table-cus table-cus';
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .container-info-title{ grid-area: title; }
+  .type-info { 
+    grid-area: type;
+    display: grid;
+    grid-template-areas:
+      'label label content content content content';
+    gap: 10px;
+    padding: 10px;
+  }
+  .course-info { 
+    grid-area: course; 
+    display: grid;
+    grid-template-areas:
+      'label label content content content content';
+    gap: 10px;
+    padding: 10px;
+  }
+  .module-info { 
+    grid-area: module;
+    display: grid;
+    grid-template-areas:
+      'label label content content content content';
+    gap: 10px;
+    padding: 10px;
+  }
+  .grid-container-info {
+    display: grid;
+    grid-template-areas:
+      'title title title title title title'
+      'type type course course module module'
+      'type type course course module module';
+    gap: 10px;
+    padding: 10px;
+  }
+  .grid-container > div {
+    padding: 20px 0;
+    font-size: 15px;
+  }
+</style>
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css"/>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+<h3> {{#str}} anchorvisortitle, block_cosy_ct {{/str}} </h3>
+<div class="grid-container">
+  <div class="change-name-form">
+    {{{change_name_form}}}
+  </div>
+  <div class="edit-icon">
+    <button class="btn btn-success" id="iut_anchor_editname_icon">
+      {{#pix}}
+        i/edit, core, Edit this name
+      {{/pix}}
+    </button>
+  </div>
+</div>
+<div class="grid-container-info">
+  <div class="container-info-title">
+    <h3>{{#str}} containertitle, block_cosy_ct {{/str}}</h3>
+  </div>
+  <div class="type-info">
+    <div class="label-text">
+      <b>{{#str}} containertypelabel, block_cosy_ct {{/str}}</b>
+    </div>
+    <div class="content-text">
+      <p>{{type_content}}</p>
+    </div>
+  </div>
+  <div class="course-info">
+    <div class="label-text">
+      <b>{{#str}} containercourselabel, block_cosy_ct {{/str}}</b>
+    </div>
+    <div class="content-text">
+      <p>{{course_content}}</p>
+    </div>
+  </div>
+  <div class="module-info">
+    <div class="label-text">
+      <b>{{#str}} containermodulelabel, block_cosy_ct {{/str}}</b>
+    </div>
+    <div class="content-text">
+      <p>{{module_content}}</p>
+    </div>
+  </div>
+</div>
+<div class="grid-table-container">
+  <div class="title-rec-obj">
+    <h3> {{#str}} recommendationtitle, block_cosy_ct {{/str}} </h3>
+  </div>
+  <div class="add-button">
+    <button class="btn btn-success" id="iut_anchor_add_rec_obj_icon">
+      {{#pix}}
+        t/add, core, Add Recommendation Object
+      {{/pix}}
+    </button>
+  </div>
+  <div class="table-cus">
+    <table id="rec_obj_table">
+      <thead>
+        <th> {{#str}} tablerowid, block_cosy_ct {{/str}} </th>
+        <th> {{#str}} tablerowdescription, block_cosy_ct {{/str}} </th>
+        <th> {{#str}} tablerowapproach, block_cosy_ct {{/str}} </th>
+        <th> {{#str}} tablerowmedia, block_cosy_ct {{/str}} </th>
+        <th> {{#str}} recobjactions, block_cosy_ct {{/str}} </th>
+      </thead>
+      {{#rec_objs}}
+        <tr>
+          <td>{{id}}</td>
+          <td>{{description}}</td>
+          <td>{{approach}}</td>
+          <td>{{media}}</td>
+          <td>
+            <button class="btn btn-warning" id="iut_edit_rec_obj_{{id}}">
+              {{#pix}}
+                t/editinline, core, Edit Recommendation Object
+              {{/pix}}
+            </button>
+            <script type="text/javascript">
+                document.getElementById("iut_edit_rec_obj_{{id}}").onclick = function () {
+                    location.href = "/moodle/blocks/cosy_ct/rec_obj_edit.php?id={{cmid}}&courseid={{courseid}}&blockid={{blockid}}&anchorid={{anchorid}}&recobjid={{id}}";
+                };
+            </script>
+            <button class="btn btn-danger" id="iut_remove_rec_obj_{{id}}">
+              {{#pix}}
+                t/delete, core, Delete Recommendation Object
+              {{/pix}}
+            </button>
+            <script type="text/javascript">
+                document.getElementById("iut_remove_rec_obj_{{id}}").onclick = function () {
+                    location.href = "/moodle/blocks/cosy_ct/rec_obj_del.php?id={{cmid}}&courseid={{courseid}}&blockid={{blockid}}&anchorid={{anchorid}}&recobjid={{id}}";
+                };
+            </script>
+          </td>
+        </tr>
+      {{/rec_objs}}
+    </table>
+  </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $('#rec_obj_table').DataTable({
+          select: true
+        });
+    });
+</script>
+<script type="text/javascript">
+    document.getElementById("iut_anchor_add_rec_obj_icon").onclick = function () {
+        location.href = "/moodle/blocks/cosy_ct/rec_obj_add.php?id={{cmid}}&courseid={{courseid}}&blockid={{blockid}}&anchorid={{anchorid}}";
+    };
+</script>

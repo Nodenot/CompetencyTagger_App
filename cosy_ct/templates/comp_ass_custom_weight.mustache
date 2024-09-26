@@ -1,0 +1,70 @@
+{{!
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * @package     block_cosy_ct
+ * @copyright      2023  J. Cornejo-Lupa
+ * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */ }}
+
+
+<style>
+    .category-concept { grid-area:category-concept; }
+    .approach-concept { grid-area:approach-concept; }
+    .media-concept { grid-area:media-concept; }
+    .type-concept { grid-area:type-concept; }
+    .save-button { grid-area:save-button; }
+    .cancel-button { grid-area:cancel-button; }
+    .grid-particular-concepts {
+        display: grid;
+        grid-template-areas:
+            'category-concept category-concept approach-concept approach-concept media-concept media-concept'
+            'type-concept type-concept approach-concept approach-concept media-concept media-concept';
+        gap: 10px;
+        padding: 10px;
+    }
+    .grid-footer-buttons {
+        display: grid;
+        grid-template-areas:
+            'save-button save-button save-button cancel-button cancel-button cancel-button';
+        gap: 10px;
+        padding: 10px;
+    }
+</style>
+
+<div class="grid-general-concepts">
+    <div>
+        {{{weight_form}}}
+    </div>
+</div>
+<div class="grid-footer-buttons">
+    <div class="save-button">
+        <button class="btn btn-primary" id="id_submitbutton_change_custom_weight">
+            {{#str}} changecustomweightbutton, block_cosy_ct {{/str}}
+        </button>
+    </div>
+    <div class="cancel-button">
+        <button class="btn btn-secondary" id="id_cancelbutton_change_custom_weight">
+            {{#str}} canceldata, block_cosy_ct {{/str}}
+        </button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.getElementById("id_cancelbutton_change_custom_weight").onclick = function () {
+        location.href = "/moodle/blocks/cosy_ct/rec_obj_edit.php?id={{cmid}}&courseid={{courseid}}&blockid={{blockid}}&anchorid={{anchorid}}&recobjid={{recobjid}}";
+    };
+</script>

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/cosy_ct/db" VERSION="202304121207" COMMENT="XMLDB file for IUT block plugin"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+    <TABLES>
+        <!-- Anchors -->
+        <TABLE NAME="block_cosy_ct_containers" COMMENT="Each record is a container in an IUT work context.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="INT" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="type" TYPE="TEXT" NOTNULL="true" SEQUENCE="false" COMMENT="Type of the container."/>
+                <FIELD NAME="course" TYPE="INT" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="The course in which this container belongs."/>
+                <FIELD NAME="section" TYPE="INT" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="The section in which this container belongs."/>
+                <FIELD NAME="idin_course_modules" TYPE="INT" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of the container inside the table course_modules of moodle."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="block_cosy_ct_anchors" COMMENT="Each record is an anchor in an IUT work context.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="INT" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="name" TYPE="TEXT" NOTNULL="true" SEQUENCE="false" COMMENT="Name of the anchor."/>
+                <FIELD NAME="reference_id" TYPE="TEXT" NOTNULL="true" SEQUENCE="false" COMMENT="Label to reference inside a container."/>
+                <FIELD NAME="id_container" TYPE="TEXT" NOTNULL="true" SEQUENCE="false" COMMENT="Id of the container inside the table block_cosy_ct_containers."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+
+        <!-- Recomendation objects -->
+        <TABLE NAME="block_cosy_ct_typesrecobj" COMMENT="Each record is a type of recommendation object.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="type_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Value of Type Rec Object."/>
+                <FIELD NAME="display_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Display name of Type Rec Object."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="block_cosy_ct_approaches" COMMENT="Each record is an approach in the cosy_ct context.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="approach_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="The name of the approach."/>
+                <FIELD NAME="display_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Display name of Type Rec Object."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="block_cosy_ct_categories" COMMENT="Each record is a category in the cosy_ct context.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="category_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="The name of the category."/>
+                <FIELD NAME="display_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Display name of Type Rec Object."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="block_cosy_ct_medias" COMMENT="Each record is a type of media.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="media_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="The name of the media"/>
+                <FIELD NAME="display_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Display name of Type Rec Object."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="block_cosy_ct_recobj" COMMENT="Each record is a recommendation object">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="description" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Description of the Recommendation Object."/>
+                <FIELD NAME="anchorid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of anchor inside table block_cosy_ct_anchors."/>
+                <FIELD NAME="typerecobjid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of type of rec obj inside table block_cosy_ct_typesrecobj."/>
+                <FIELD NAME="categoryid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of category inside table block_cosy_ct_categories."/>
+                <FIELD NAME="approachid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of approach inside table block_cosy_ct_approaches."/>
+                <FIELD NAME="comment" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Comment about rec obj."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <TABLE NAME="block_cosy_ct_recobj_medias" COMMENT="Each record is a correlation between records in rec obj and type of medias">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="recobjid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of rec obj inside table block_cosy_ct_recobj."/>
+                <FIELD NAME="mediaid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of media inside table block_cosy_ct_medias."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <!-- Know Hows - Competencies -->
+        <TABLE NAME="block_cosy_ct_recobj_knowho" COMMENT="Each record is a correlation between records in rec obj and a moodle competency">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="recobjid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of rec obj inside table block_cosy_ct_recobj."/>
+                <FIELD NAME="competencyid" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of the moodle competency."/>
+                <FIELD NAME="weight" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Weight assign to the competency in correlation with the recobj."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+            </KEYS>
+        </TABLE>
+        <!--Relationship -->
+        <TABLE NAME="block_cosy_ct_relationship" COMMENT="Each record is a relationship">
+            <FIELDS>
+                <FIELD NAME="id_relationship" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="relationship_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Name of the relation."/>
+                <FIELD NAME="id_inverse_rel" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of the inversed relation."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id_relationship"/>
+            </KEYS>
+        </TABLE>
+        <!--Concept -->
+        <TABLE NAME="block_cosy_ct_concept" COMMENT="Each record is a concept">
+            <FIELDS>
+                <FIELD NAME="id_concept" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="concept_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Name of the concept."/>
+                <FIELD NAME="id_course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of course where the concept belongs to."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id_concept"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="id_course" UNIQUE="false" FIELDS="id_course" />
+            </INDEXES>
+        </TABLE>
+        <!--Verb -->
+        <TABLE NAME="block_cosy_ct_verb" COMMENT="Each record is a verb">
+            <FIELDS>
+                <FIELD NAME="id_verb" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="verb_name" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Verb."/>
+                <FIELD NAME="id_course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of course where the verb belongs to."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id_verb"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="id_course" UNIQUE="false" FIELDS="id_course" />
+            </INDEXES>
+        </TABLE>
+         <!--Competency -->
+        <TABLE NAME="block_cosy_ct_competency" COMMENT="Each record is a competency">
+            <FIELDS>
+                <FIELD NAME="id_competency" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="id_verb" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of verb inside table block_cosy_ct_verb."/>
+                <FIELD NAME="id_concept" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of concept inside table block_cosy_ct_concept."/>
+                <FIELD NAME="id_course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of course where the competency belongs to."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id_competency"/>
+                <KEY NAME="competency_ibfk_1" TYPE="foreign" FIELDS="id_verb" REFTABLE="block_cosy_ct_verb" REFFIELDS="id_verb"/>
+                <KEY NAME="competency_ibfk_2" TYPE="foreign" FIELDS="id_concept" REFTABLE="block_cosy_ct_concept" REFFIELDS="id_concept"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="id_verb" UNIQUE="false" FIELDS="id_verb, id_concept, id_course" />
+                <INDEX NAME="id_concept" UNIQUE="false" FIELDS="id_concept" />
+                <INDEX NAME="id_course" UNIQUE="false" FIELDS="id_course" />
+            </INDEXES>
+        </TABLE>
+        <!--Concept_concept -->
+        <TABLE NAME="block_cosy_ct_con_con" COMMENT="Each record is a relation between two concepts">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="id_concept" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of concept inside table block_cosy_ct_concept."/>
+                <FIELD NAME="id_concept2" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of concept inside table block_cosy_ct_concept."/>
+                <FIELD NAME="id_relationship" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of relation inside table block_cosy_ct_relationship."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="concept_concept_ibfk_1" TYPE="foreign" FIELDS="id_concept" REFTABLE="block_cosy_ct_concept" REFFIELDS="id_concept"/>
+                <KEY NAME="concept_concept_ibfk_2" TYPE="foreign" FIELDS="id_concept2" REFTABLE="block_cosy_ct_concept" REFFIELDS="id_concept"/>
+                <KEY NAME="concept_concept_ibfk_3" TYPE="foreign" FIELDS="id_relationship" REFTABLE="block_cosy_ct_relationship" REFFIELDS="id_relationship"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="id_concept" UNIQUE="false" FIELDS="id_concept, id_concept2, id_relationship" />
+                <INDEX NAME="id_concept2" UNIQUE="false" FIELDS="id_concept2" />
+                <INDEX NAME="id_relationship" UNIQUE="false" FIELDS="id_relationship" />
+            </INDEXES>
+        </TABLE>
+        <!--Competency_competency -->
+        <TABLE NAME="block_cosy_ct_comp_comp" COMMENT="Each record is a relation between two competencies.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="id_competency" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of competency inside table block_cosy_ct_competency."/>
+                <FIELD NAME="id_competency2" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of competency inside table block_cosy_ct_competency."/>
+                <FIELD NAME="id_relationship" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of relation inside table block_cosy_ct_relationship."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="comp_comp_ibfk_1" TYPE="foreign" FIELDS="id_competency" REFTABLE="block_cosy_ct_competency" REFFIELDS="id_competency"/>
+                <KEY NAME="comp_comp_ibfk_2" TYPE="foreign" FIELDS="id_competency2" REFTABLE="block_cosy_ct_competency" REFFIELDS="id_competency"/>
+                <KEY NAME="comp_comp_ibfk_3" TYPE="foreign" FIELDS="id_relationship" REFTABLE="block_cosy_ct_relationship" REFFIELDS="id_relationship"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="id_competency" UNIQUE="false" FIELDS="id_competency, id_competency2, id_relationship" />
+                <INDEX NAME="id_competency2" UNIQUE="false" FIELDS="id_competency2" />
+                <INDEX NAME="id_relationship" UNIQUE="false" FIELDS="id_relationship" />
+            </INDEXES>
+        </TABLE>
+        <!--recobj_competency -->
+        <TABLE NAME="block_cosy_ct_recobj_comp" COMMENT="Each record is a relation between a recommandation objet and a competency.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="id_recobj" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of recobj inside table block_cosy_ct_recobj."/>
+                <FIELD NAME="id_competency" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of competency inside table block_cosy_ct_competency."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="recobj_competency_ibfk_1" TYPE="foreign" FIELDS="id_recobj" REFTABLE="block_cosy_ct_recobj" REFFIELDS="id"/>
+                <KEY NAME="recobj_competency_ibfk_2" TYPE="foreign" FIELDS="id_competency" REFTABLE="block_cosy_ct_competency" REFFIELDS="id_competency"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="id_recobj" UNIQUE="false" FIELDS="id_recobj, id_competency" />
+                <INDEX NAME="id_competency" UNIQUE="false" FIELDS="id_competency" />
+            </INDEXES>
+        </TABLE>
+        <!--recobj_concept -->
+        <TABLE NAME="block_cosy_ct_recobj_con" COMMENT="Each record is a relation between a recommandation objet and a concept.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="id_recobj" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of recobj inside table block_cosy_ct_recobj."/>
+                <FIELD NAME="id_concept" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id of concept inside table block_cosy_ct_concept."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="recobj_concept_ibfk_1" TYPE="foreign" FIELDS="id_recobj" REFTABLE="block_cosy_ct_recobj" REFFIELDS="id"/>
+                <KEY NAME="recobj_concept_ibfk_2" TYPE="foreign" FIELDS="id_concept" REFTABLE="block_cosy_ct_concept" REFFIELDS="id_concept"/>
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="id_recobj" UNIQUE="false" FIELDS="id_recobj, id_concept" />
+                <INDEX NAME="id_concept" UNIQUE="false" FIELDS="id_concept" />
+            </INDEXES>
+        </TABLE>
+        <!--graph -->
+        <TABLE NAME="block_cosy_ct_graph" COMMENT="Each record is a graph.">
+            <FIELDS>
+                <FIELD NAME="id_graph" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Standard Moodle primary key."/>
+                <FIELD NAME="createdat" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="When the graph has been created."/>
+                <FIELD NAME="lastupdate" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Last time the graph has been updated."/>
+                <FIELD NAME="data_graph" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="The graph data in a JSON format."/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id_graph"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>
