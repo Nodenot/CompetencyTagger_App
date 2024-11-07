@@ -1,0 +1,9 @@
+{
+    "db": {
+        "host": "localhost",
+        "user": "root",
+        "password": "bitnami", 
+        "database":  "bitnami_moodle",
+        "port": 3307
+    }
+}
